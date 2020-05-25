@@ -33,6 +33,8 @@
       "enable": false
     }
   },
-  "migrate-history": [],
+  "migrate-history": [
+    "cloud-function"
+  ],
   "start-scene": "current"
 }
