@@ -15,12 +15,12 @@ export default class GameConfig {
     }
 }
 GameConfig.width = 640;
-GameConfig.height = 1136;
-GameConfig.scaleMode ="fixedwidth";
+GameConfig.height = 1135;
+GameConfig.scaleMode ="fixedheight";
 GameConfig.screenMode = "none";
 GameConfig.alignV = "top";
 GameConfig.alignH = "left";
-GameConfig.startScene = "test/TestScene.scene";
+GameConfig.startScene = "Scene/main.scene";
 GameConfig.sceneRoot = "";
 GameConfig.debug = false;
 GameConfig.stat = false;

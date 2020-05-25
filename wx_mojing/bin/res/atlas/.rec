@@ -1,4 +1,8 @@
 D .
+D bg
+R 147F8A82 img_bg.jpg
+R 45CF5516 img_chapter_1.png
+R AB8BBEB9 img_chapter_2.png
 D comp
 P 316AD948 btn_close.png
 P 5B258D17 button.png
@@ -50,3 +54,19 @@ P 4D16AC06 c2.png
 P 39B957DA p1.png
 P 2E1973F5 t1.png
 P F8700A3B tra.png
+D ui
+P 524FF085 btn_cuo_off.png
+P 5BDD9D13 btn_cuo_on.png
+P 1D6E5000 btn_search.png
+P 42624A9E btn_yang_off.png
+P 736B3D89 btn_yang_on.png
+P 139F7654 btn_yu_off.png
+P 657CDAC2 btn_yu_on.png
+R 15DADC1C frame_shadow.png
+P 6C56DFC3 icon_file.png
+P D29397A4 icon_home.png
+P 248D7264 icon_info.png
+P 0123CBC1 icon_logo.png
+P 08E2C877 icon_pag.png
+R 5EAF434B ui_frame_01.png
+P 2A1F0D39 ui_select.png
