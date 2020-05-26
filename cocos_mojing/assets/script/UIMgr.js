@@ -28,7 +28,7 @@ cc.Class({
             default:null,
             type:cc.Node
         },
-        myButton:{
+        btn_2:{
             default:null,
             type:cc.Node
         }
@@ -37,9 +37,22 @@ cc.Class({
     // LIFE-CYCLE CALLBACKS:
 
     onLoad () {
-        
+        var clickEventHandler = new cc.Component.EventHandler();
+        clickEventHandler.target = this.node; // 这个 node 节点是你的事件处理代码组件所属的节点
+        clickEventHandler.component = "UIMgr";// 这个是代码文件名
+        clickEventHandler.handler = "callback";
+        clickEventHandler.customEventData = "foobar222";
+        var button = this.btn_2.getComponent(cc.Button);
+        button.clickEvents.push(clickEventHandler);
     },
-    setLableVisible: function(){
+    callback: function (event, customEventData) {
+        cc.log("name === " + customEventData);
+        // 这里 event 是一个 Event 对象，你可以通过 event.target 取到事件的发送节点
+        var node = event.target;
+
+        var button = node.getComponent(cc.Button);
+        cc.log("name === " + button.name);
+
         if (this.myLable.activeInHierarchy){
             cc.log("true");
             this.myLable.active = false;
@@ -49,14 +62,7 @@ cc.Class({
             this.myLable.active = true;
         }
         cc.log("touchend : " + this.myLable.activeInHierarchy);
-    },
-    onEnable: function () {
-        // this.myButton.on("touchend", this._setLableVisible, this.myLable);
-        // cc.log("onEnable");
-    },
-    onDisable: function () {
-        // this.node.off('touchend', this._setLableVisible, this.myLable);
-        // cc.log("onDisable");
+
     },
     start () {
 
