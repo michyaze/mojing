@@ -1,0 +1,11 @@
+1,根据格式生成excel
+2,使用以下链接excel转换成json
+在线excel转json：http://www.bejson.com/json/col2json/
+注意：第一行和第二行不需要
+id	fnt_color	block_color	type	time	answer	content				
+编号	颜色 	底色块	1旁白 2提示 3对话 4输入框 5图片	停留时间（秒）	答案	正文（图片以#imgae_  id是另外一个表的id）				
+
+3,使用以下链接校验json是否正确
+在线json效验：http://www.bejson.com/
+注意：如果出现TypeError: Cannot read property 'style' of undefined提示
+把json最后一个逗号删掉 即可
