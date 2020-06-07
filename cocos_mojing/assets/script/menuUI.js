@@ -9,46 +9,15 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-        Img_main: {
-            default:null, 
-            type:cc.Button,
-            tooltip: '主页'
-        },
-        Img_bag: {
-            default:null, 
-            type:cc.Button,
-            tooltip: '锦囊'
-        },
-        Img_record: {
-            default:null, 
-            type:cc.Button,
-            tooltip: '档案'
-        },
-        Img_my: {
-            default:null, 
-            type:cc.Button,
-            tooltip: '我的'
-        },
-        Img_select: {
-            default:null, 
-            type:cc.Node,
-            tooltip: '选择'
-        },
-        node_main: {
-            default:null, 
-            type:cc.Node,
-            tooltip: 'node_main'
-        },
-        node_bag: {
-            default:null, 
-            type:cc.Node,
-            tooltip: 'node_bag'
-        },
-        node_my: {
-            default:null, 
-            type:cc.Node,
-            tooltip: 'node_my'
-        },
+        Img_main: {default:null, type:cc.Button,tooltip: '主页'},
+        Img_bag: {default:null, type:cc.Button,tooltip: '锦囊'},
+        Img_record: {default:null, type:cc.Button,tooltip: '档案'},
+        Img_my: {default:null, type:cc.Button,tooltip: '我的'},
+        Img_select: {default:null, type:cc.Node,tooltip: '选择'},
+        node_main: {default:null, type:cc.Node,tooltip: 'node_main'},
+        node_bag: {default:null, type:cc.Node,tooltip: 'node_bag'},
+        node_my: {default:null, type:cc.Node,tooltip: 'node_my'},
+        panel_main: {default:null, type:cc.Node,tooltip: 'node_my'},
     },
     onLoad () {
         cc.log("menuUI onLoad");
@@ -59,6 +28,7 @@ cc.Class({
     },
     onImg_main(){        
         cc.log("onImg_main");
+        this.panel_main.getComponent("mainUI").logg();
         this.setSelect(this.Img_main, this.node_main);
     },
     onImg_bag(){

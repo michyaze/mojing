@@ -21,14 +21,14 @@ cc.Class({
             // cc.log("engine = " + engine);
             // cc.log("ver = " + ver);
             self._config = object.json;
-            cc.log("加载数据完成！");
-            for (let id = 0; id < self._config.length; id++) {
-                const obj = self._config[id];
-                cc.log("id = " + obj.id);
-                cc.log("name = " + obj.name);
-                cc.log("time = " + obj.time);
-                cc.log("dec = " + obj.dec);
-            }
+            // cc.log("加载数据完成！");
+            // for (let id = 0; id < self._config.length; id++) {
+            //     const obj = self._config[id];
+            //     cc.log("id = " + obj.id);
+            //     cc.log("name = " + obj.name);
+            //     cc.log("time = " + obj.time);
+            //     cc.log("dec = " + obj.dec);
+            // }
         });      
     },
 

@@ -1,11 +1,35 @@
 1,根据格式生成excel
 2,使用以下链接excel转换成json
 在线excel转json：http://www.bejson.com/json/col2json/
-注意：第一行和第二行不需要
-id	fnt_color	block_color	type	time	answer	content				
-编号	颜色 	底色块	1旁白 2提示 3对话 4输入框 5图片	停留时间（秒）	答案	正文（图片以#imgae_  id是另外一个表的id）				
-
+注意：从A1开始复制，到你填到的那个格子，多余的空格不需要
+			
 3,使用以下链接校验json是否正确
 在线json效验：http://www.bejson.com/
 注意：如果出现TypeError: Cannot read property 'style' of undefined提示
 把json最后一个逗号删掉 即可
+
+4,把正确的json打开
+把第一个行头删掉
+{
+	"id":"编号",
+	"fnt_color":"颜色 ",
+	"block_color":"底色块",
+	"type":"1旁白 2提示 3对话 4输入框 5图片",
+	"time":"停留时间（秒）",
+	"answer":"答案",
+	"align":"1左对齐2居中3右对齐",
+	"content":"正文（图片以#imgae_  id是另外一个表的id）空行需要补空格"
+},
+
+json打开如下面格式程序才能读取
+[    
+	{
+        "id":1,
+        "fnt_color":"#252422",
+        "block_color":"#252422",
+        "type":1,
+        "time":2,
+        "answer":0,
+        "align":1,
+        "content":"明清时期，为躲避战乱、出外谋生或方便海上贸易，闽南人漂洋过海，移居台湾、东南亚等地区人数日益增多。"
+    },

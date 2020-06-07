@@ -54,4 +54,8 @@ cc.Class({
     start () {
 
     },
+    logg: function(){
+        cc.log("logg===========>>");
+    }
+
 });
