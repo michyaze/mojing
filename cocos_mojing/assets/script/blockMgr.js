@@ -7,20 +7,14 @@ cc.Class({
     },
 
     addLabel: function(configObj){
-        var labelNode = this.node.getChildByName("label");
-        var node = cc.instantiate(labelNode);
-        node.parent = this.node;
-        var label = node.getComponent(cc.Label);
+        var label = this.node.getComponent(cc.Label);
         label.string = configObj.content;
-        label.horizontalAlign = 0;//configObj.align;
+        label.horizontalAlign = configObj.align;
         label._forceUpdateRenderData();
-        labelNode.active = false;
         
-        var size = node.getContentSize();
         var nSize = this.node.getContentSize();
-        this.node.setContentSize(nSize.width, size.height);
+        var pSize = this.node.parent.getContentSize();
+        var height = pSize.height + nSize.height + 5;//间距5
+        this.node.parent.setContentSize(pSize.width, height);
     },
-    logg: function(){
-        cc.log("logg===========>>");
-    }
 });
