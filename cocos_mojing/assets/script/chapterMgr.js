@@ -4,10 +4,9 @@ cc.Class({
     //1旁白 2提示 3对话 4输入框 5图片
     properties: {
         prefab_1: {default:null, type:cc.Prefab, tooltip: '旁白'},
-        prefab_2: {default:null, type:cc.Prefab, tooltip: '提示'},
+        prefab_2: {default:null, type:cc.Prefab, tooltip: '文本'},
         prefab_3: {default:null, type:cc.Prefab, tooltip: '对话'},
         prefab_4: {default:null, type:cc.Prefab, tooltip: '输入框'},
-        prefab_5: {default:null, type:cc.Prefab, tooltip: '文本框'},
         parent: cc.Node,   //预制件实例化后所在的父节点
     },
 
@@ -36,14 +35,11 @@ cc.Class({
             var index = 0;
             for (let id = 0; id < self._config.length; id++) {
                 const obj = self._config[id];
-                cc.log("id = " + obj.id);
-                cc.log("content = " + obj.content);
-                // self.createPrefab(obj);
+                // cc.log("id = " + obj.id);
+                // cc.log("content = " + obj.content);
+
                 self["createPrefab_" + obj.type](obj);
                 index = index + 1;
-                // if(index >= 12){
-                //     break;
-                // }
             }
         });
     },
@@ -66,7 +62,7 @@ cc.Class({
                 cc.log("createPrefab_1 parent error!");
                 return;
             }
-            let labelNode = cc.instantiate(this.prefab_5);
+            let labelNode = cc.instantiate(this.prefab_2);
             labelNode.parent = this.lastNode;
             let label = labelNode.getComponent(cc.Label);
             label.string = configObj.content;
@@ -80,12 +76,44 @@ cc.Class({
 
     createPrefab_2: function(configObj){
         cc.log("createPrefab_2");
+        let labelNode = cc.instantiate(this.prefab_2);
+        labelNode.parent = this.parent;
+        let label = labelNode.getComponent(cc.Label);
+        label.string = configObj.content;
+        label.horizontalAlign = configObj.align;
+        label._forceUpdateRenderData();
     },
+        //1旁白 2提示 3对话 4输入框 5图片
     createPrefab_3: function(configObj){
         cc.log("createPrefab_3");
+        let node = cc.instantiate(this.prefab_3);
+        node.parent = this.parent;
+        let iconNode = node.getChildByName("img_icon");
+        let imgbgNode = node.getChildByName("img_bg");
+        let labelNode = imgbgNode.getChildByName("label");
+        let label = labelNode.getComponent(cc.Label);
+        label.string = configObj.content;
+        label.horizontalAlign = configObj.align;
+        label._forceUpdateRenderData();
+        imgbgNode.getComponent(cc.Layout)._doLayout();
+        var iconSize = iconNode.getContentSize();
+        var imgbgSize = imgbgNode.getContentSize();
+        var height = 0;
+        if(iconSize.height > imgbgSize.height){
+            height = iconSize.height;
+        }
+        else{
+            height = imgbgSize.height;
+        }
+        let size = node.getChildByName("img_bg");
+        node.setContentSize(size.width, height);
+
     },
     createPrefab_4: function(configObj){
         cc.log("createPrefab_4");
+        let node = cc.instantiate(this.prefab_4);
+        node.parent = this.parent;
+
     },
     createPrefab_5: function(configObj){
         cc.log("createPrefab_5");
