@@ -7,6 +7,7 @@ cc.Class({
         prefab_2: {default:null, type:cc.Prefab, tooltip: '文本'},
         prefab_3: {default:null, type:cc.Prefab, tooltip: '对话'},
         prefab_4: {default:null, type:cc.Prefab, tooltip: '输入框'},
+        scrollView:cc.Node,
         parent: cc.Node,   //预制件实例化后所在的父节点
     },
 
@@ -32,21 +33,36 @@ cc.Class({
                 return;
             }
             self._config = object.json;
+            self.configLen = self._config.length;
             cc.log("加载数据完成！");
-            this._isLoad = true;
-            var index = 0;
-            for (let id = 0; id < self._config.length; id++) {
-                const obj = self._config[id];
-                // cc.log("id = " + obj.id);
-                // cc.log("content = " + obj.content);
+            self._isLoad = true;
+            // var index = 0;
+            // for (let id = 0; id < self._config.length; id++) {
+            //     const obj = self._config[id];
+            //     // cc.log("id = " + obj.id);
+            //     // cc.log("content = " + obj.content);
 
-                self["createPrefab_" + obj.type](obj);
-                index = index + 1;
-            }
+            //     self["createPrefab_" + obj.type](obj);
+            //     index = index + 1;
+            // }
         });
+        this._index = 0;
+        this._dt = 0;
     },
-    update(){
-
+    update(dt){
+        if( !this._isLoad ){
+            return;
+        }
+        if(this._index < this.configLen){
+            const obj = this._config[this._index];
+            this._dt = this._dt + dt;
+            if(this._dt > obj.time){
+                this._dt = this._dt - obj.time;
+                this["createPrefab_" + obj.type](obj);
+                this._index = this._index + 1;
+                this.scrollView.getComponent(cc.ScrollView).scrollToBottom(0.1);
+            }
+        }    
     },
     //1旁白
     createPrefab_1: function(configObj){
