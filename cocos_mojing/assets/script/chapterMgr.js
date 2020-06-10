@@ -22,6 +22,7 @@ cc.Class({
         cc.log("onType_1");
     },
     start () {
+        this._isLoad = false;
         cc.log("从本地加载数据：");
         this._config = {};
         var self = this;
@@ -32,6 +33,7 @@ cc.Class({
             }
             self._config = object.json;
             cc.log("加载数据完成！");
+            this._isLoad = true;
             var index = 0;
             for (let id = 0; id < self._config.length; id++) {
                 const obj = self._config[id];
@@ -43,7 +45,10 @@ cc.Class({
             }
         });
     },
-    //创建类型1--旁白
+    update(){
+
+    },
+    //1旁白
     createPrefab_1: function(configObj){
         //新背景，创建背景和label
         if(configObj.belongs == 0){
@@ -73,9 +78,8 @@ cc.Class({
 
         // node_clone.getComponent("blockMgr").addLabel(configObj);
     },
-
+    //2提示
     createPrefab_2: function(configObj){
-        cc.log("createPrefab_2");
         let labelNode = cc.instantiate(this.prefab_2);
         labelNode.parent = this.parent;
         let label = labelNode.getComponent(cc.Label);
@@ -83,9 +87,8 @@ cc.Class({
         label.horizontalAlign = configObj.align;
         label._forceUpdateRenderData();
     },
-        //1旁白 2提示 3对话 4输入框 5图片
+    //3对话
     createPrefab_3: function(configObj){
-        cc.log("createPrefab_3");
         let node = cc.instantiate(this.prefab_3);
         node.parent = this.parent;
         let iconNode = node.getChildByName("img_icon");
@@ -109,12 +112,12 @@ cc.Class({
         node.setContentSize(size.width, height);
 
     },
+    //4输入框
     createPrefab_4: function(configObj){
-        cc.log("createPrefab_4");
         let node = cc.instantiate(this.prefab_4);
         node.parent = this.parent;
-
     },
+    //5图片
     createPrefab_5: function(configObj){
         cc.log("createPrefab_5");
     },
