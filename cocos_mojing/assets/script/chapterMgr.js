@@ -15,12 +15,6 @@ cc.Class({
     onLoad () {
         cc.log("chapterMgr onLoad");
         cc.debug.setDisplayStats(false);
-        // this.addClickEvent(this.chapter_1, this.node, "chapterMgr", "onType_1");
-
-    },
-
-    onType_1(){        
-        cc.log("onType_1");
     },
     start () {
         this._isLoad = false;
@@ -48,21 +42,32 @@ cc.Class({
         });
         this._index = 0;
         this._dt = 0;
+        this._isPass = true;   //输入是否正确,第一次要设置为成功 false会卡住
     },
     update(dt){
-        if( !this._isLoad ){
+        if( !this._isLoad | this.isGameOver()){
             return;
         }
-        if(this._index < this.configLen){
-            const obj = this._config[this._index];
-            this._dt = this._dt + dt;
-            if(this._dt > obj.time){
-                this._dt = this._dt - obj.time;
-                this["createPrefab_" + obj.type](obj);
-                this._index = this._index + 1;
-                this.scrollView.getComponent(cc.ScrollView).scrollToBottom(0.1);
+        const obj = this._config[this._index];
+        //是输入框，并且没有正确
+        if(obj.type == 4 & !this._isPass){
+            return;
+        }
+        this._dt = this._dt + dt;
+        if(this._dt > obj.time){
+            this._dt = this._dt - obj.time;
+            this["createPrefab_" + obj.type](obj);
+            if(obj.type == 4){
+                this._isPass = false;
             }
-        }    
+            else{
+                this._index = this._index + 1;
+            }
+            this.scrollView.getComponent(cc.ScrollView).scrollToBottom(0.1);
+        }   
+    },
+    isGameOver: function(){
+        return this._index >= this._config.length;
     },
     //1旁白
     createPrefab_1: function(configObj){
@@ -132,17 +137,57 @@ cc.Class({
     createPrefab_4: function(configObj){
         let node = cc.instantiate(this.prefab_4);
         node.parent = this.parent;
+        var btn_enter = node.getChildByName("btn_enter").getComponent(cc.Button);
+        this.addClickEvent(btn_enter, this.node, "chapterMgr", "onType_1", configObj);
     },
     //5图片
     createPrefab_5: function(configObj){
         cc.log("createPrefab_5");
     },
-    addClickEvent: function(node,target,component,handler){
+    checkAnswer:function(inputStr, answerStr){
+        return inputStr == answerStr;
+    },
+    onType_1(event, argc){      
+        cc.log("onType_1==== " + argc.answer);
+        // 这里 event 是一个 Event 对象，你可以通过 event.target 取到事件的发送节点
+        var node = event.target;
+        var editBoxNode = node.parent.getChildByName("editBox");
+
+        var inputStr = editBoxNode.getComponent(cc.EditBox).string;
+        cc.log("inputStr ==== " + inputStr);
+        var bRet = this.checkAnswer(inputStr, argc.answer);
+        if(bRet){
+            cc.log("true=====");
+            node.getComponent(cc.Button).interactable = false;
+            this._isPass = true;
+            this._index = this._index + 1;
+        }
+        else{
+            cc.log("false=====");
+        }
+    },
+    addClickEvent: function(node,target,component,handler, argc){
         var eventHandler = new cc.Component.EventHandler();
         eventHandler.target = target;
         eventHandler.component = component;
         eventHandler.handler = handler;
+        eventHandler.customEventData = argc;
         node.clickEvents.push(eventHandler);
     },
+
+    // var userInfo = {
+    //     "userName":"hello",
+    //     "age":10,
+    //     "sex":'woman'
+    // };
+ 
+    // //转换为字符串
+    // var uI = JSON.stringify(userInfo);
+    
+    // //转换为json对象
+    // var Iu = JSON.parse(uI);
+    
+    // console.log(Iu.userName);
+
     // update (dt) {},
 });
