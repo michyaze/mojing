@@ -9,12 +9,14 @@ cc.Class({
         prefab_4: {default:null, type:cc.Prefab, tooltip: '输入框'},
         scrollView:cc.Node,
         parent: cc.Node,   //预制件实例化后所在的父节点
+        btn_back:cc.Node,
     },
 
     // LIFE-CYCLE CALLBACKS:
     onLoad () {
         cc.log("chapterMgr onLoad");
-        cc.debug.setDisplayStats(false);
+        var button = this.btn_back.getComponent(cc.Button);
+        this.addClickEvent(button, this.node, "chapterMgr", "onBtnBack", "configObj");
     },
     start () {
         this._isLoad = false;
@@ -43,6 +45,17 @@ cc.Class({
         this._index = 0;
         this._dt = 0;
         this._isPass = true;   //输入是否正确,第一次要设置为成功 false会卡住
+
+
+    },
+    onBtnBack(event, argc){
+        var main = cc.find("Canvas/Panel_main");
+        main.active = true;
+        var menu = cc.find("Canvas/Panel_menu");
+        menu.active = true;   
+
+        // this.node.active = false;
+        this.node.destroy();
     },
     update(dt){
         if( !this._isLoad | this.isGameOver()){
